@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = Bloc1_Exemple1.0.0
-DISTDIR = /home/sgarcia/Programacio/INDI/Lab1.2/ex0/.tmp/Bloc1_Exemple1.0.0
+DISTDIR = /home/sgarcia/Programacio/INDI/Lab1.3/ex0/.tmp/Bloc1_Exemple1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
 LIBS          = $(SUBLIBS) /usr/lib/libQt5OpenGL.so /usr/lib/libQt5Widgets.so /usr/lib/libQt5Gui.so /usr/lib/libQt5Core.so -lGL -lpthread   
@@ -781,14 +781,15 @@ compiler_moc_header_clean:
 	-$(DEL_FILE) moc_MyForm.cpp moc_MyGLWidget.cpp
 moc_MyForm.cpp: MyForm.h \
 		ui_MyForm.h \
+		MyGLWidget.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/sgarcia/Programacio/INDI/Lab1.2/ex0/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/sgarcia/Programacio/INDI/Lab1.2/ex0 -I/usr/include/glm -I/usr/include/qt -I/usr/include/qt/QtOpenGL -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/10.2.0 -I/usr/include/c++/10.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/10.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed -I/usr/include MyForm.h -o moc_MyForm.cpp
+	/usr/bin/moc $(DEFINES) --include /home/sgarcia/Programacio/INDI/Lab1.3/ex0/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/sgarcia/Programacio/INDI/Lab1.3/ex0 -I/usr/include/glm -I/usr/include/qt -I/usr/include/qt/QtOpenGL -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/10.2.0 -I/usr/include/c++/10.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/10.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed -I/usr/include MyForm.h -o moc_MyForm.cpp
 
 moc_MyGLWidget.cpp: MyGLWidget.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/sgarcia/Programacio/INDI/Lab1.2/ex0/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/sgarcia/Programacio/INDI/Lab1.2/ex0 -I/usr/include/glm -I/usr/include/qt -I/usr/include/qt/QtOpenGL -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/10.2.0 -I/usr/include/c++/10.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/10.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed -I/usr/include MyGLWidget.h -o moc_MyGLWidget.cpp
+	/usr/bin/moc $(DEFINES) --include /home/sgarcia/Programacio/INDI/Lab1.3/ex0/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/sgarcia/Programacio/INDI/Lab1.3/ex0 -I/usr/include/glm -I/usr/include/qt -I/usr/include/qt/QtOpenGL -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/10.2.0 -I/usr/include/c++/10.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/10.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed -I/usr/include MyGLWidget.h -o moc_MyGLWidget.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -813,11 +814,13 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 ####### Compile
 
 main.o: main.cpp MyForm.h \
-		ui_MyForm.h
+		ui_MyForm.h \
+		MyGLWidget.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 MyForm.o: MyForm.cpp MyForm.h \
-		ui_MyForm.h
+		ui_MyForm.h \
+		MyGLWidget.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MyForm.o MyForm.cpp
 
 MyGLWidget.o: MyGLWidget.cpp MyGLWidget.h
