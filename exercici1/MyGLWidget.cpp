@@ -1,17 +1,11 @@
-//#include <GL/glew.h>
 #include "MyGLWidget.h"
-#include "ext/matrix_transform.hpp"
-#include "fwd.hpp"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
-#include "matrix.hpp"
-#include <iostream>
 
 MyGLWidget::MyGLWidget (QWidget* parent) : QOpenGLWidget(parent), program(NULL)
 {
     setFocusPolicy(Qt::StrongFocus);  // per rebre events de teclat
 }
-
 
 MyGLWidget::~MyGLWidget ()
 {
@@ -19,15 +13,14 @@ MyGLWidget::~MyGLWidget ()
         delete program;
 }
 
-
 void MyGLWidget::initializeGL ()
 {
     // Cal inicialitzar l'ús de les funcions d'OpenGL
     initializeOpenGLFunctions();
 
     // Activar el canal de transparència. (NEW!)
-    //glEnable(GL_BLEND);
-    //glBlendFunc(GL_SRC_ALPHA,  GL_SRC1_ALPHA);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_SRC1_ALPHA);
 
     glClearColor (200/255.0, 220/255.0, 255/255.0, 1.0); // defineix color de fons (d'esborrat)
     carregaShaders();
@@ -53,12 +46,10 @@ void MyGLWidget::paintGL ()
     glClear (GL_COLOR_BUFFER_BIT);  // Esborrem el frame-buffer
 
     pintaMuntanyes();
-    //pintaBaseGronxador();
-    //pintaGronxador();
-    //pintaPesos();
+    pintaBaseGronxador();
+    pintaGronxador();
+    pintaPesos();
 
-    // Desactivem el VAO
-    glBindVertexArray(0);
 }
 
 
@@ -66,7 +57,6 @@ void MyGLWidget::resizeGL (int w, int h)
 {
     ample = w;
     alt = h;
-
 }
 
 
@@ -105,11 +95,12 @@ void MyGLWidget::pintaMuntanyes(){
 
     glBindVertexArray(VAO_MUNTANYA);
 
-    //transformacioMuntanya(1, this->xSegonaMuntanya, 1);
-    //glDrawArrays(GL_TRIANGLE_FAN, 0, MUNTANYA_NUM_VERTEXS);
-
-    transformacioMuntanya(0.7, this->xPrimeraMuntanya, 1);
+    transformacioMuntanya(0.7, this->xPrimeraMuntanya, 0.5);
     glDrawArrays(GL_TRIANGLE_FAN, 0, MUNTANYA_NUM_VERTEXS);
+
+    transformacioMuntanya(1, this->xSegonaMuntanya, 1);
+    glDrawArrays(GL_TRIANGLE_FAN, 0, MUNTANYA_NUM_VERTEXS);
+
 
     glBindVertexArray(0);
 }
@@ -120,9 +111,13 @@ void MyGLWidget::keyPressEvent(QKeyEvent* event)
     makeCurrent();
     switch (event->key()) {
         case Qt::Key_A: 
+            if (anglePalanca <30)
+                anglePalanca +=5;
             break;
                         
         case Qt::Key_D: 
+            if (anglePalanca >-30)
+                anglePalanca -=5;
             break;
                         
         default:
@@ -139,13 +134,13 @@ void MyGLWidget::transformacioMuntanya(double h, double xPos, float transparenci
     glm::mat4 transform (1.0f);
 
     // movem al xPox
-    //transform = glm::translate(transform, glm::vec3(xPos, -1, 0));
+    transform = glm::translate(transform, glm::vec3(xPos, -1, 0));
 
     //// escalem
-    //transform = glm::scale(transform, glm::vec3(0.5, 1/(h*2.0), 1));
+    transform = glm::scale(transform, glm::vec3(0.5, 1/(h*2.0), 1));
 
-    //// al centre de coordenades
-    //transform = glm::translate(transform, glm::vec3(1, 1, 0));
+    // al centre de coordenades
+    transform = glm::translate(transform, glm::vec3(1, 1, 0));
 
     glUniformMatrix4fv (transLoc, 1, GL_FALSE, &transform[0][0]); 
     glUniform1f(transCol, transparencia);
@@ -165,11 +160,11 @@ void MyGLWidget::transformacioGronxador(){
     // Codi per a la TG necessària
     glm::mat4 transform (1.0f);
 
-    transform = glm::translate(transform, glm::vec3(0, -0.75, 0));
-
-    // escalem
+    transform = glm::translate(transform, glm::vec3(0, -0.8, 0));
+    transform = glm::rotate(transform, glm::radians(anglePalanca), glm::vec3(0,0,1));
+    transform = glm::translate(transform, glm::vec3(-0.4, -0.0, 0));
     transform = glm::scale(transform, glm::vec3(0.8, 0.1, 0));
-
+    transform = glm::translate(transform, glm::vec3(0.5, 0.5, 0));
     glUniformMatrix4fv (transLoc, 1, GL_FALSE, &transform[0][0]); 
 }
 
@@ -178,8 +173,12 @@ void MyGLWidget::transformacioPes(int left){
     // Codi per a la TG necessària
     glm::mat4 transform (1.0f);
 
-    transform = glm::translate(transform, glm::vec3(left*0.35, -0.65, 0));
+    transform = glm::translate(transform, glm::vec3(0, -0.8, 0));
+    transform = glm::rotate(transform, glm::radians(anglePalanca), glm::vec3(0,0,1));
+    
+    transform = glm::translate(transform, glm::vec3(-0.4*left, 0.1, 0));
     transform = glm::scale(transform, glm::vec3(0.1, 0.1, 0));
+    transform = glm::translate(transform, glm::vec3(0.5*left, 0.5, 0));
 
     glUniformMatrix4fv (transLoc, 1, GL_FALSE, &transform[0][0]); 
 }

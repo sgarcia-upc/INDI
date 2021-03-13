@@ -6,7 +6,6 @@ in vec4 vertex_color;
 uniform float trans;
 
 void main() {
-    FragColor = vertex_color;
-    FragColor.a = trans;
+    FragColor = vertex_color * trans;
 }
 
