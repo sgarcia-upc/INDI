@@ -1,8 +1,8 @@
 //#include <GL/glew.h>
 #include "MyGLWidget.h"
 #include "qnamespace.h"
-
 #include <iostream>
+
 
 MyGLWidget::MyGLWidget (QWidget* parent) : QOpenGLWidget(parent), program(NULL)
 {
@@ -39,7 +39,7 @@ void MyGLWidget::paintGL ()
 
     // En cas de voler canviar els paràmetres del viewport, descomenteu la crida següent i
     // useu els paràmetres que considereu (els que hi ha són els de per defecte)
-    //	glViewport (0, 0, ample, alt);
+	glViewport (0, 0, ample, alt);
 
     glClear (GL_COLOR_BUFFER_BIT);	// Esborrem el frame-buffer
 
@@ -115,7 +115,10 @@ void MyGLWidget::carregaShaders()
 }
 
 void MyGLWidget::modelTransform() {
-    // Matriu de transformació, inicialment identitat (I)
+
+
+    std::cout << matx << " " << maty << std::endl;
+    glUniform1f(varLoc,scl);
     glm::mat4 TG(1); 
     TG=glm::translate(TG, glm::vec3 (matx, maty, matz));
     glUniformMatrix4fv (transLoc, 1, GL_FALSE, &TG[0][0]); 
@@ -127,27 +130,21 @@ void MyGLWidget::keyPressEvent(QKeyEvent*e){
     switch(e->key()){
         case Qt::Key_S:
             scl+=0.1;
-            glUniform1f(varLoc,scl);
             break;
         case Qt::Key_D:
             scl-=0.1;
-            glUniform1f(varLoc,scl);
             break;
         case Qt::Key_Up:
             maty += 0.1;
-            modelTransform();
             break; 
         case Qt::Key_Down:
             maty -= 0.1;
-            modelTransform();
             break; 
         case Qt::Key_Left:
             matx -= 0.1;
-            modelTransform();
             break; 
         case Qt::Key_Right:
             matx += 0.1;
-            modelTransform();
             break; 
         default:
             e->ignore();//propagaralpare
