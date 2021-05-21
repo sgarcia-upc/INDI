@@ -13,7 +13,6 @@ MyGLWidget::MyGLWidget (QWidget* parent) : QOpenGLWidget(parent), program(NULL)
     scale = 1.0;
     xMove = 0;
     yMove = 0;
-    deltaA = M_PI / 180;
 }
 
 MyGLWidget::~MyGLWidget ()

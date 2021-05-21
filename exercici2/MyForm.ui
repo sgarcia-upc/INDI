@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MyForm</class>
+ <widget class="QWidget" name="MyForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>841</width>
+    <height>726</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>IDI-Lab</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <widget class="MyGLWidget" name="widget" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QPushButton" name="reseEscena">
+         <property name="text">
+          <string>resetEscena</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Posicio de la camara:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioPrincipal">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="text">
+          <string>Principal</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="RadioSecondaria">
+         <property name="text">
+          <string>Secondaria</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Rotacio Patricio 1</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QDial" name="Patricio1Dial">
+         <property name="accessibleDescription">
+          <string/>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>12</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Rotacio patricio 2</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QDial" name="patricio2Dial">
+         <property name="layoutDirection">
+          <enum>Qt::RightToLeft</enum>
+         </property>
+         <property name="maximum">
+          <number>11</number>
+         </property>
+         <property name="invertedAppearance">
+          <bool>true</bool>
+         </property>
+         <property name="invertedControls">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="Sortir">
+         <property name="text">
+          <string>Sortir</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2"/>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MyGLWidget</class>
+   <extends>QWidget</extends>
+   <header>MyGLWidget.h</header>
+   <container>1</container>
+   <slots>
+    <signal>cameraPrincipalRadio(bool)</signal>
+    <signal>cameraSecondariaRadio(bool)</signal>
+    <signal>dialpatri1(int)</signal>
+    <signal>dialpatri2(int)</signal>
+    <slot>resetEscena()</slot>
+    <slot>radioCamera(bool)</slot>
+    <slot>principalCamera()</slot>
+    <slot>secondaryCamera()</slot>
+    <slot>rotpat1(int)</slot>
+    <slot>rotpat2(int)</slot>
+   </slots>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>Sortir</sender>
+   <signal>clicked()</signal>
+   <receiver>MyForm</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>772</x>
+     <y>696</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>420</x>
+     <y>362</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>reseEscena</sender>
+   <signal>pressed()</signal>
+   <receiver>widget</receiver>
+   <slot>resetEscena()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>753</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>357</x>
+     <y>362</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioPrincipal</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>principalCamera()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>757</x>
+     <y>179</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>568</x>
+     <y>183</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>RadioSecondaria</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>secondaryCamera()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>744</x>
+     <y>202</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>597</x>
+     <y>219</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Patricio1Dial</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>widget</receiver>
+   <slot>rotpat1(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>766</x>
+     <y>395</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>574</x>
+     <y>405</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>patricio2Dial</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>widget</receiver>
+   <slot>rotpat2(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>770</x>
+     <y>523</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>519</x>
+     <y>493</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>cameraSecondariaRadio(bool)</signal>
+   <receiver>RadioSecondaria</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>604</x>
+     <y>284</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>775</x>
+     <y>205</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>cameraPrincipalRadio(bool)</signal>
+   <receiver>radioPrincipal</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>471</x>
+     <y>236</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>803</x>
+     <y>175</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>dialpatri1(int)</signal>
+   <receiver>Patricio1Dial</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>424</x>
+     <y>495</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>770</x>
+     <y>383</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>dialpatri2(int)</signal>
+   <receiver>patricio2Dial</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>450</x>
+     <y>448</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>763</x>
+     <y>527</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>resetEscena()</slot>
+ </slots>
+</ui>
