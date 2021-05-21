@@ -32,12 +32,10 @@ void main()
     vertexSCO = view * TG * vec4(vertex, 1.0);
     focusSCO = vec4(posFocus, 1.0);
 
-     matambFrag  = matamb;
-     matdiffFrag = matdiff;
-     matspecFrag = matspec;
-     matshinFrag = matshin;
+    matambFrag  = matamb;
+    matdiffFrag = matdiff;
+    matspecFrag = matspec;
+    matshinFrag = matshin;
     
-
-
     gl_Position = proj * view * TG * vec4 (vertex, 1.0);
 }
