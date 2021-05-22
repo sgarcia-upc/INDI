@@ -27,6 +27,87 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
+      <spacer name="verticalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Control de llums:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="radioButton_4">
+       <property name="text">
+        <string>Totes apagades</string>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="radioButton">
+       <property name="text">
+        <string>1 encesa</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="radioButton_2">
+       <property name="text">
+        <string>2 encesa</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="radioButton_3">
+       <property name="text">
+        <string>Totes enceses</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Reactor:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="checkBox">
+       <property name="text">
+        <string>encès</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="verticalSpacer">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
@@ -65,8 +146,28 @@
    <slots>
     <signal>signalFocusMovedKeyboard(int)</signal>
     <signal>signalEngineMode(bool)</signal>
+    <signal>cameraPrincipalRadio(bool)</signal>
+    <signal>cameraSecondariaRadio(bool)</signal>
+    <signal>dialpatri1(int)</signal>
+    <signal>dialpatri2(int)</signal>
+    <signal>allOn(bool)</signal>
+    <signal>allOff(bool)</signal>
+    <signal>oneOn(bool)</signal>
+    <signal>twoOn(bool)</signal>
+    <signal>reactorSig(bool)</signal>
     <slot>onFocusMoved(int)</slot>
     <slot>onEngineMode(bool)</slot>
+    <slot>allOff()</slot>
+    <slot>oneOn()</slot>
+    <slot>twoOn()</slot>
+    <slot>allOn()</slot>
+    <slot>resetEscena()</slot>
+    <slot>radioCamera(bool)</slot>
+    <slot>principalCamera()</slot>
+    <slot>secondaryCamera()</slot>
+    <slot>rotpat1(int)</slot>
+    <slot>rotpat2(int)</slot>
+    <slot>reactor(bool)</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -85,6 +186,166 @@
     <hint type="destinationlabel">
      <x>839</x>
      <y>529</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_4</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>allOff()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>808</x>
+     <y>221</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>496</x>
+     <y>322</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>oneOn()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>808</x>
+     <y>246</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>590</x>
+     <y>348</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>twoOn()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>808</x>
+     <y>271</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>551</x>
+     <y>377</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>allOn()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>808</x>
+     <y>296</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>528</x>
+     <y>389</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>allOff(bool)</signal>
+   <receiver>radioButton_4</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>461</x>
+     <y>182</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>808</x>
+     <y>221</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>oneOn(bool)</signal>
+   <receiver>radioButton</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>602</x>
+     <y>203</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>808</x>
+     <y>246</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>twoOn(bool)</signal>
+   <receiver>radioButton_2</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>602</x>
+     <y>264</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>808</x>
+     <y>271</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>allOn(bool)</signal>
+   <receiver>radioButton_3</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>570</x>
+     <y>426</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>808</x>
+     <y>296</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>reactorSig(bool)</signal>
+   <receiver>checkBox</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>487</x>
+     <y>525</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>725</x>
+     <y>507</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>widget</receiver>
+   <slot>reactor(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>766</x>
+     <y>505</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>608</x>
+     <y>595</y>
     </hint>
    </hints>
   </connection>

@@ -8,6 +8,7 @@ MyGLWidget::MyGLWidget (QWidget* parent) : QOpenGLWidget(parent), program(NULL)
     setFocusPolicy(Qt::StrongFocus);  // per rebre events de teclat
     xClick = yClick = 0;
     DoingInteractive = NONE;
+    reactorOn = false;
 }
 
 MyGLWidget::~MyGLWidget ()
@@ -42,15 +43,20 @@ void MyGLWidget::iniEscena ()
     posFocus1 = glm::vec3(0.0, 5.0, 0.0);
     posFocus2 = glm::vec3(0.0, 5.0, 10.0);
 
-    colFocus = glm::vec3(0.8, 0.8, 0.8);
     ambFocus = glm::vec3(0.1, 0.1, 0.1);
+    glUniform3fv(ambFocusLoc, 1, &ambFocus[0]);
 
+    posFocusReactor = glm::vec3(-1.9, 3.60, -5.65);
+    colFocusReactor = glm::vec3(1, 0.2, 0.0);
+
+    defFocus = glm::vec3(0.8, 0.8, 0.8);
     glUniform3fv(posFocusLoc0, 1, &posFocus0[0]);
     glUniform3fv(posFocusLoc1, 1, &posFocus1[0]);
     glUniform3fv(posFocusLoc2, 1, &posFocus2[0]);
 
-    glUniform3fv(colFocusLoc, 1, &colFocus[0]);
-    glUniform3fv(ambFocusLoc, 1, &ambFocus[0]);
+    glUniform3fv(colFocusLoc0, 1, &defFocus[0]);
+    glUniform3fv(colFocusLoc1, 1, &defFocus[0]);
+    glUniform3fv(colFocusLoc2, 1, &defFocus[0]);
 
 }
 
@@ -171,21 +177,103 @@ void MyGLWidget::viewTransform ()
     glUniformMatrix4fv (viewLoc, 1, GL_FALSE, &View[0][0]);
 }
 
+void MyGLWidget::allOff() {
+    makeCurrent();
+    glm::vec3 off = glm::vec3(0,0,0);
+    glUniform3fv(colFocusLoc0, 1, &off[0]);
+    glUniform3fv(colFocusLoc1, 1, &off[0]);
+    glUniform3fv(colFocusLoc2, 1, &off[0]);
+    update();
+}
+void MyGLWidget::oneOn(){
+    makeCurrent();
+    glm::vec3 off = glm::vec3(0,0,0);
+    glUniform3fv(colFocusLoc2, 1, &off[0]);
+    glUniform3fv(colFocusLoc1, 1, &off[0]);
+    glUniform3fv(colFocusLoc0, 1, &defFocus[0]);
+    update();
+}
+void MyGLWidget::twoOn(){
+    makeCurrent();
+    glm::vec3 off = glm::vec3(0,0,0);
+    glUniform3fv(colFocusLoc2, 1, &off[0]);
+    glUniform3fv(colFocusLoc1, 1, &defFocus[0]);
+    glUniform3fv(colFocusLoc0, 1, &defFocus[0]);
+    update();
+}
+void MyGLWidget::allOn(){
+    makeCurrent();
+    glUniform3fv(colFocusLoc0, 1, &defFocus[0]);
+    glUniform3fv(colFocusLoc1, 1, &defFocus[0]);
+    glUniform3fv(colFocusLoc2, 1, &defFocus[0]);
+    update();
+}
+
+void MyGLWidget::reactor(bool k){
+    makeCurrent();
+    if (k){
+        glUniform3fv(colFocusReactorLoc, 1, &colFocusReactor[0]);
+        glUniform3fv(posFocusReactorLoc, 1, &posFocusReactor[0]);
+    } else {
+        glm::vec3 off;
+        glUniform3fv(colFocusReactorLoc, 1, &off[0]);
+        glUniform3fv(posFocusReactorLoc, 1, &off[0]);
+    }
+    update();
+}
 
 void MyGLWidget::keyPressEvent(QKeyEvent* event)  // Cal modificar aquesta funció...
 {
     makeCurrent();
-
     switch (event->key()) {
 
-        case Qt::Key_S: {
-                            if(avioPos.z<10) avioPos += glm::vec3(0.f,0.f,0.2f);
-                            break;
-                        }
-        case Qt::Key_W: {
-                            if(avioPos.z>-6) avioPos -= glm::vec3(0.f,0.f,0.2f);
-                            break;
-                        }
+        case Qt::Key_S: 
+            if(avioPos.z<10) avioPos += glm::vec3(0.f,0.f,0.2f);
+            break;
+
+        case Qt::Key_W: 
+            if(avioPos.z>-6) avioPos -= glm::vec3(0.f,0.f,0.2f);
+            break;
+
+        case Qt::Key_0:
+            allOff();
+            emit (allOff(true));
+            emit (oneOn(false));
+            emit (twoOn(false));
+            emit (allOn(false));
+            break;
+
+        case Qt::Key_1:
+            oneOn();
+            emit (allOff(false));
+            emit (oneOn(true));
+            emit (twoOn(false));
+            emit (allOn(false));
+            break;
+
+        case Qt::Key_2:
+            twoOn();
+            emit (allOff(false));
+            emit (oneOn(false));
+            emit (twoOn(true));
+            emit (allOn(false));
+            break;
+
+        case Qt::Key_3:
+            allOn();
+            emit (allOff(false));
+            emit (oneOn(false));
+            emit (twoOn(false));
+            emit (allOn(true));
+            break;
+
+        case Qt::Key_E:
+            if (reactorOn){
+                reactorOn = false;
+            } else { 
+                reactorOn = true;
+            }
+            emit (reactorSig(reactorOn));
 
         default: event->ignore(); break;
     }
@@ -450,7 +538,11 @@ void MyGLWidget::carregaShaders()
     posFocusLoc0 = glGetUniformLocation (program->programId(), "posFocus0");
     posFocusLoc1 = glGetUniformLocation (program->programId(), "posFocus1");
     posFocusLoc2 = glGetUniformLocation (program->programId(), "posFocus2");
+    posFocusReactorLoc = glGetUniformLocation (program->programId(), "posFocusReactor");
     ambFocusLoc = glGetUniformLocation (program->programId(), "llumAmbient");
-    colFocusLoc = glGetUniformLocation (program->programId(), "colFocus");
+    colFocusLoc0 = glGetUniformLocation (program->programId(), "colFocus0");
+    colFocusLoc1 = glGetUniformLocation (program->programId(), "colFocus1");
+    colFocusLoc2 = glGetUniformLocation (program->programId(), "colFocus2");
+    colFocusReactorLoc = glGetUniformLocation (program->programId(), "colFocusReactor");
 }
 

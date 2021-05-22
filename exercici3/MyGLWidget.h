@@ -20,6 +20,19 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     ~MyGLWidget ();
 
 
+  signals:
+    void allOff(bool);
+    void oneOn(bool);
+    void twoOn(bool);
+    void allOn(bool);
+    void reactorSig(bool);
+
+  public slots:
+    void allOff();
+    void oneOn();
+    void twoOn();
+    void allOn();
+    void reactor(bool);
 
   protected:
     // initializeGL - Aqui incluim les inicialitzacions del contexte grafic.
@@ -61,13 +74,13 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     // uniform locations
     GLuint transLoc, projLoc, viewLoc;
     // attribute locations
-    GLuint vertexLoc, normalLoc, matambLoc, matdiffLoc, matspecLoc, matshinLoc, colFocusLoc, posFocusLoc0, posFocusLoc1, posFocusLoc2, ambFocusLoc;
+    GLuint vertexLoc, normalLoc, matambLoc, matdiffLoc, matspecLoc, matshinLoc, colFocusReactorLoc, colFocusLoc0, colFocusLoc1, colFocusLoc2, posFocusLoc0, posFocusLoc1, posFocusLoc2, ambFocusLoc, posFocusReactorLoc;
     GLint ample, alt;
 
     // model
     Model hangarModel, avioModel;
     // paràmetres calculats a partir de la capsa contenidora del model
-    glm::vec3 centreBaseAvio, centreBaseHangar, colFocus, posFocus0, posFocus1, posFocus2, ambFocus;
+    glm::vec3 centreBaseAvio, centreBaseHangar, defFocus, posFocus0, posFocus1, posFocus2, colFocusReactor, posFocusReactor, ambFocus;
     float escalaAvio, escalaArc;
     glm::vec3 centreEsc;
     float radiEsc, ra;
@@ -79,6 +92,7 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     InteractiveAction DoingInteractive;
     int xClick, yClick;
     float angleX, angleY;
+    bool reactorOn;
 
     glm::mat4 View;
 

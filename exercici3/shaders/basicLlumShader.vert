@@ -20,6 +20,7 @@ uniform vec3 colFocus;
 uniform vec3 posFocus0;
 uniform vec3 posFocus1;
 uniform vec3 posFocus2;
+uniform vec3 posFocusReactor;
 
 out vec3 fcolor;
 out vec3 NormSCO;
@@ -27,6 +28,7 @@ out vec4 vertexSCO;
 out vec4 focusSCO0;
 out vec4 focusSCO1;
 out vec4 focusSCO2;
+out vec4 focusSCOReactor;
 
 void main()
 {	
@@ -37,6 +39,7 @@ void main()
     focusSCO0 = view * vec4(posFocus0, 1.0);
     focusSCO1 = view * vec4(posFocus1, 1.0);
     focusSCO2 = view * vec4(posFocus2, 1.0);
+    focusSCOReactor = view * vec4(posFocusReactor, 1.0);
 
     matambFrag  = matamb;
     matdiffFrag = matdiff;
