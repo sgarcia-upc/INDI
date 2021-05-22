@@ -51,6 +51,7 @@ void main()
     vec3 Lxyz1 = normalize(L1.xyz);
     vec4 L2 = focusSCO2 - vertexSCO;
     vec3 Lxyz2 = normalize(L2.xyz);
+
     vec4 LR = focusSCOReactor - vertexSCO;
     vec3 LxyzR = normalize(LR.xyz);
 
@@ -67,7 +68,6 @@ void main()
     vec3 phong = Phong (NormSCO, Lxyz0, vertexSCO, colFocus0);
     phong = phong + Phong (NormSCO, Lxyz1, vertexSCO, colFocus1);
     phong = phong + Phong (NormSCO, Lxyz2, vertexSCO, colFocus2);
-    phong = phong + Phong (NormSCO, LxyzR, vertexSCO, colFocusReactor);
 
     vec3 fcolorFrag = amb + lam + phong;
 	FragColor = vec4(fcolorFrag,1);

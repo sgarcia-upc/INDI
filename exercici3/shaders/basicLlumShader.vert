@@ -15,6 +15,7 @@ out float matshinFrag;
 
 uniform mat4 proj;
 uniform mat4 view;
+uniform mat4 avio;
 uniform mat4 TG;
 uniform vec3 colFocus;
 uniform vec3 posFocus0;
@@ -39,7 +40,7 @@ void main()
     focusSCO0 = view * vec4(posFocus0, 1.0);
     focusSCO1 = view * vec4(posFocus1, 1.0);
     focusSCO2 = view * vec4(posFocus2, 1.0);
-    focusSCOReactor = view * vec4(posFocusReactor, 1.0);
+    focusSCOReactor = (view * avio) * vec4(posFocusReactor, 1.0);
 
     matambFrag  = matamb;
     matdiffFrag = matdiff;

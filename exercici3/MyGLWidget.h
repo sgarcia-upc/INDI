@@ -74,7 +74,7 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     // uniform locations
     GLuint transLoc, projLoc, viewLoc;
     // attribute locations
-    GLuint vertexLoc, normalLoc, matambLoc, matdiffLoc, matspecLoc, matshinLoc, colFocusReactorLoc, colFocusLoc0, colFocusLoc1, colFocusLoc2, posFocusLoc0, posFocusLoc1, posFocusLoc2, ambFocusLoc, posFocusReactorLoc;
+    GLuint vertexLoc, normalLoc, matambLoc, matdiffLoc, matspecLoc, matshinLoc, colFocusReactorLoc, colFocusLoc0, colFocusLoc1, colFocusLoc2, posFocusLoc0, posFocusLoc1, posFocusLoc2, ambFocusLoc, posFocusReactorLoc, avioLoc;
     GLint ample, alt;
 
     // model

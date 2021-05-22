@@ -145,6 +145,7 @@ void MyGLWidget::modelTransformAvio ()
     TG = glm::scale(TG, alcada*glm::vec3(escalaAvio, escalaAvio, escalaAvio));
     TG = glm::translate(TG, -centreBaseAvio);
     glUniformMatrix4fv(transLoc, 1, GL_FALSE, &TG[0][0]);
+    glUniformMatrix4fv(avioLoc, 1, GL_FALSE, &TG[0][0]);
 }
 
 void MyGLWidget::projectTransform ()
@@ -534,6 +535,7 @@ void MyGLWidget::carregaShaders()
     transLoc = glGetUniformLocation (program->programId(), "TG");
     projLoc = glGetUniformLocation (program->programId(), "proj");
     viewLoc = glGetUniformLocation (program->programId(), "view");
+    avioLoc = glGetUniformLocation (program->programId(), "avio");
 
     posFocusLoc0 = glGetUniformLocation (program->programId(), "posFocus0");
     posFocusLoc1 = glGetUniformLocation (program->programId(), "posFocus1");
