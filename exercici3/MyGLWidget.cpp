@@ -38,11 +38,17 @@ void MyGLWidget::iniEscena ()
     centreEsc = glm::vec3 (0, 0, 0);  
     radiEsc = 15;
 
-    posFocus = glm::vec3(0.0, 5.0, -10.0);
+    posFocus0 = glm::vec3(0.0, 5.0, -10.0);
+    posFocus1 = glm::vec3(0.0, 5.0, 0.0);
+    posFocus2 = glm::vec3(0.0, 5.0, 10.0);
+
     colFocus = glm::vec3(0.8, 0.8, 0.8);
     ambFocus = glm::vec3(0.1, 0.1, 0.1);
 
-    glUniform3fv(posFocusLoc, 1, &posFocus[0]);
+    glUniform3fv(posFocusLoc0, 1, &posFocus0[0]);
+    glUniform3fv(posFocusLoc1, 1, &posFocus1[0]);
+    glUniform3fv(posFocusLoc2, 1, &posFocus2[0]);
+
     glUniform3fv(colFocusLoc, 1, &colFocus[0]);
     glUniform3fv(ambFocusLoc, 1, &ambFocus[0]);
 
@@ -441,7 +447,9 @@ void MyGLWidget::carregaShaders()
     projLoc = glGetUniformLocation (program->programId(), "proj");
     viewLoc = glGetUniformLocation (program->programId(), "view");
 
-    posFocusLoc = glGetUniformLocation (program->programId(), "posFocus");
+    posFocusLoc0 = glGetUniformLocation (program->programId(), "posFocus0");
+    posFocusLoc1 = glGetUniformLocation (program->programId(), "posFocus1");
+    posFocusLoc2 = glGetUniformLocation (program->programId(), "posFocus2");
     ambFocusLoc = glGetUniformLocation (program->programId(), "llumAmbient");
     colFocusLoc = glGetUniformLocation (program->programId(), "colFocus");
 }
