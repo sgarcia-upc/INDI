@@ -61,13 +61,13 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     // uniform locations
     GLuint transLoc, projLoc, viewLoc;
     // attribute locations
-    GLuint vertexLoc, normalLoc, matambLoc, matdiffLoc, matspecLoc, matshinLoc;
+    GLuint vertexLoc, normalLoc, matambLoc, matdiffLoc, matspecLoc, matshinLoc, colFocusLoc, posFocusLoc, ambFocusLoc;
     GLint ample, alt;
 
     // model
     Model hangarModel, avioModel;
     // paràmetres calculats a partir de la capsa contenidora del model
-    glm::vec3 centreBaseAvio, centreBaseHangar;
+    glm::vec3 centreBaseAvio, centreBaseHangar, colFocus, posFocus, ambFocus;
     float escalaAvio, escalaArc;
     glm::vec3 centreEsc;
     float radiEsc, ra;
