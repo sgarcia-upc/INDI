@@ -92,9 +92,6 @@ void MyGLWidget::iniEscena ()
     centreEsc = glm::vec3(2,2,2);
     centreEscSecondaria = glm::vec3(0,0,0);
 
-    glm::vec3 min (-20,4,-20);
-    glm::vec3 max (20,0,20);
-
     radiEsc = distance(min, max) / 2;
 }
 
@@ -361,7 +358,7 @@ void MyGLWidget::calculaCapsaModel (Model &p, float &escala, glm::vec3 &centreBa
     escala = 1.0/(maxy-miny);
     centreBase[0] = (minx+maxx)/2.0;
     centreBase[1] = miny;
-    centreBase[2] = (minz+maxz)/2.0;
+    centreBase[2] = (minz+maxz)/2.0;    
 }
 
 void MyGLWidget::creaBuffersCub ()
